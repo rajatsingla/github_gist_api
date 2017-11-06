@@ -105,15 +105,15 @@ export default class SearchPage extends React.Component {
   	}
 
   	searchByName(event) {
-  		var q = event.target.value;
+  		var q = event.target.value.toLowerCase();
   		var gists = this.state.originalGists.filter(function(gist){
   			let ans = false;
   			Object.keys(gist.files).map((file, i) => 
-				  {if (file.indexOf(q) !== -1)
+				  {if (file.toLowerCase().indexOf(q) !== -1)
 				 	  ans=true})
         	
         if(!gist.description){gist.description=''};
-	      return ans || gist.description.indexOf(q) !== -1 
+	      return ans || gist.description.toLowerCase().indexOf(q) !== -1 
   		})
 
 	    this.setState(function(){
@@ -159,15 +159,22 @@ export default class SearchPage extends React.Component {
   	return (
     		<div>
     			<UserForm/>
-          {sortBy && 
-          <button onClick={() => this.removeSortBy('sortBy')}>remove sort By</button>}
-    			sorting by {sortBy}
-     			fuck off {userName}
-     			<input type="text" value={this.state.searchName} onChange={this.searchByName} />
-     			<button onClick={() => this.sortBy('forks')}>Sort By forks</button>
+          <div className="total-search">
+            <h3>{gists.length} gist results for {userName}</h3>
+          </div>
+          
+          <div className="sort-btn">
+            {sortBy ? (
+              <button onClick={() => this.removeSortBy('sortBy')} className="btn remove-sort" id="remove-sort" key="remove-sort">Remove sort By</button>  
+            ) : (
+              <button onClick={() => this.sortBy('forks')} className="btn add-sort" id="add-sort" key="add-sort">Sort By forks</button>   
+            )}
+          </div>
+          <div className="clear"></div>
+          <hr/>
 
-     			here are your gists
-     			
+     			<input type="text" value={this.state.searchName} onChange={this.searchByName} placeholder="Filter by file or description" className="filter-input"/>
+     			     			
      			{gists.map((gist,i) =>
      				<li key={gist.id}>
             		<EachGist gist={gist} add_fork_to_gist={this.add_fork_to_gist} forks={forks[gist.id]}/>

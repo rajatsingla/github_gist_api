@@ -35,8 +35,11 @@ export default class EachGist extends React.Component {
 
 		return (
 			<div>
-				{gist.url}
-				<div>Forks</div>
+				<a href={gist.html_url} className="description" target="_blank"><b>Description:</b> {gist.description}</a>
+				<span className="meta-info"><i className="fa fa-calendar" aria-hidden="true"></i>{gist.created_at}</span>
+				<span className="meta-info"><a href={gist.html_url} target="_blank"><i className="fa fa-comment" aria-hidden="true"></i>{gist.comments} comments</a></span>
+				<span className="meta-info"><i className="fa fa-files-o" aria-hidden="true"></i>{Object.keys(gist.files).length} files</span>
+
 				<Forks url={gist.forks_url} forks={forks} add_fork_to_gist={this.add_fork_to_gist}/>
 				<FileBadges files={gist.files}/>
 			</div>	

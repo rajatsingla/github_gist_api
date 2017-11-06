@@ -27,16 +27,13 @@ class UserForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input type="text" value={this.state.value} onChange={this.handleChange} placeholder="Enter user name"/>
         </label>
 
         {userName &&
-          <input type="submit" value={`Search gists for ${userName}`} />
+          <input type="submit" value={`Search gists for ${userName}`} className="btn" />
         }
 
-        {!userName &&
-          <div className="notification">Enter user name</div>
-        }
       </form>
     );
   }

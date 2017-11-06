@@ -9,7 +9,6 @@ export default class IndexPage extends React.Component {
   render() {
     return (
       <div className="home">
-        hello
         <UserForm/>
       </div>
 

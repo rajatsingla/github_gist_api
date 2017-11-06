@@ -8,8 +8,8 @@ export default class Layout extends React.Component {
     return (
       <div className="app-container">
         <header>
-          <Link to={'/'}>
-            <h1>Gists</h1>
+          <Link to={'/'} className="btn">
+            Gists
           </Link>
           <hr/>
         </header>

@@ -42,6 +42,7 @@ export default class Forks extends React.Component {
   			var loading = true;	
   		}else{
   			var loading = false;
+  			var sforks = forks.slice(Math.max(forks.length - 3, 0))
   		}
   		var error = this.state.error;
 
@@ -51,11 +52,12 @@ export default class Forks extends React.Component {
 
 		return (
 			<div>
-				{forks.map((fork,i) =>
-	            	<div>
-            			{fork.url}
-	            	</div>
-	          	)}
+				<span className="forks"><i className="fa fa-code-fork" aria-hidden="true"></i>Total forks: {forks.length}</span>
+				<div className="fork-avatar">
+					{sforks.map((fork,i) =>
+            			<a href={fork.html_url} target="_blank"><img height='30' width='30' src={fork.owner.avatar_url} className="avatar-img"/></a>
+		          	)}
+	          	</div>
 			</div>	
   		);
 	}
