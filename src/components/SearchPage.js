@@ -17,7 +17,7 @@ export default class SearchPage extends React.Component {
     	sortBy: props.location.query.sortBy,
   		originalGists: [],
     	searchName: undefined,
-    	forks: {},	
+    	forks: {},
 		}
 	}
 
@@ -105,15 +105,18 @@ export default class SearchPage extends React.Component {
   	}
 
   	searchByName(event) {
-  		var q = event.target.value.toLowerCase();
+  		var q = event.target.value;
+			if(!q)
+				q='';
+			q=q.toLowerCase();
   		var gists = this.state.originalGists.filter(function(gist){
   			let ans = false;
-  			Object.keys(gist.files).map((file, i) => 
-				  {if (file.toLowerCase().indexOf(q) !== -1)
+  			Object.keys(gist.files).map((file, i) =>
+				  {if (file && file.toLowerCase().indexOf(q) !== -1)
 				 	  ans=true})
-        	
+
         if(!gist.description){gist.description=''};
-	      return ans || gist.description.toLowerCase().indexOf(q) !== -1 
+	      return ans || gist.description.toLowerCase().indexOf(q) !== -1
   		})
 
 	    this.setState(function(){
@@ -162,25 +165,25 @@ export default class SearchPage extends React.Component {
           <div className="total-search">
             <h3>{gists.length} gist results for {userName}</h3>
           </div>
-          
+
           <div className="sort-btn">
             {sortBy ? (
-              <button onClick={() => this.removeSortBy('sortBy')} className="btn remove-sort" id="remove-sort" key="remove-sort">Remove sort By</button>  
+              <button onClick={() => this.removeSortBy('sortBy')} className="btn remove-sort" id="remove-sort" key="remove-sort">Remove sort By</button>
             ) : (
-              <button onClick={() => this.sortBy('forks')} className="btn add-sort" id="add-sort" key="add-sort">Sort By forks</button>   
+              <button onClick={() => this.sortBy('forks')} className="btn add-sort" id="add-sort" key="add-sort">Sort By forks</button>
             )}
           </div>
           <div className="clear"></div>
           <hr/>
 
      			<input type="text" value={this.state.searchName} onChange={this.searchByName} placeholder="Filter by file or description" className="filter-input"/>
-     			     			
+
      			{gists.map((gist,i) =>
      				<li key={gist.id}>
             		<EachGist gist={gist} add_fork_to_gist={this.add_fork_to_gist} forks={forks[gist.id]}/>
-            	</li>	
+            	</li>
           	)}
-     			
+
     		</div>
   	);
 

@@ -20,10 +20,10 @@ export default class FileBadges extends React.Component {
 				<span className="forks"><i className="fa fa-files-o" aria-hidden="true"></i>Files with badges</span>
 				{Object.keys(files).map((file, i) => (
 	            	<div className="each-badge">
-	            		<a href={files[file].raw_url} target="_blank"><i className={`icon-${files[file].language.toLowerCase()}`}></i> {file}</a>
+	            		<a href={files[file].raw_url} target="_blank"><i className={`icon-${files[file].language && files[file].language.toLowerCase()}`}></i> {file}</a>
 	            	</div>)
 	          	)}
-			</div>	
+			</div>
   		);
 	}
 }
